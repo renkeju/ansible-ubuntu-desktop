@@ -14,6 +14,6 @@ Vagrant.configure("2") do |config|
       "--description", "ubuntu desktop ansible playbook",
       "--name", "ubuntu-desktop-ansible-playbook",
       "--graphicscontroller", "vmsvga"
-	]
+    ]
   end
 end
