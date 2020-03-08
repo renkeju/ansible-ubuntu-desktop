@@ -1,0 +1,10 @@
+---
+
+- name: setup a virtualization environment
+  hosts: default
+  gather_facts: yes
+  roles:
+    - role: crivetimihai.virtualization.virtualbox
+    - role: crivetimihai.virtualization.docker
+    - role: crivetimihai.virtualization.packer
+    - role: crivetimihai.virtualization.vagrant

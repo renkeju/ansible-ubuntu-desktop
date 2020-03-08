@@ -3,7 +3,7 @@
 
 Vagrant.configure("2") do |config|
   config.vm.box = "renkeju/ubuntu-desktop-bionic"
-  config.vm.box_version = "0.0.1"
+  config.vm.box_version = "0.0.2"
 
   config.vm.provider "virtualbox" do |vb|
     vb.customize [
@@ -16,4 +16,14 @@ Vagrant.configure("2") do |config|
       "--graphicscontroller", "vmsvga"
     ]
   end
+
+  config.vm.provision "ansible_local" do |ansible|
+    ansible.playbook = "playbook.yml"
+    ansible.install_mode = "pip"
+    ansible.become = true
+    ansible.extra_vars = { 
+      ansible_python_interpreter: "/usr/bin/python3" 
+    }
+  end
+
 end
