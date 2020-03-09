@@ -1,2 +1,7 @@
 ---
 # defaults file for anaconda
+
+conda_user:
+  - vagrant
+
+pypi_index_url: https://pypi.tuna.tsinghua.edu.cn/simple

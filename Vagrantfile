@@ -21,6 +21,7 @@ Vagrant.configure("2") do |config|
     ansible.playbook = "playbook.yml"
     ansible.install_mode = "pip"
     ansible.become = true
+    ansible.compatibility_mode = "2.0"
     ansible.extra_vars = { 
       ansible_python_interpreter: "/usr/bin/python3" 
     }

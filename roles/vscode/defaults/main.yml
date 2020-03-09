@@ -1,2 +1,13 @@
 ---
 # defaults file for vscode
+
+vscode_extension:
+  - vscodevim.vim
+  - ms-python.python
+  - ms-vscode-remote.vscode-remote-extensionpack
+  - vscoss.vscode-ansible
+  - ms-python.anaconda-extension-pack
+  - lextudio.restructuredtext
+  - marcostazi.vs-code-vagrantfile
+  - vscode-icons-team.vscode-icons
+  - ms-ceintl.vscode-language-pack-zh-hans

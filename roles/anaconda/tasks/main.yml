@@ -1,2 +1,50 @@
 ---
 # tasks file for anaconda
+
+- name: Install our public gpg key to trusted store
+  apt_key:
+    url: https://repo.anaconda.com/pkgs/misc/gpgkeys/anaconda.asc
+    keyring: /etc/apt/trusted.gpg.d/conda.gpg
+    state: present
+
+- name: Add Ubuntu anaconda repo
+  apt_repository:
+    repo: deb [arch=amd64] https://repo.anaconda.com/pkgs/misc/debrepo/conda stable main
+    state: present
+    filename: conda
+
+- name: Install conda
+  apt:
+    name: conda
+    update_cache: yes
+
+- name: TUNA Anaconda repository and third-party sources
+  template:
+    src: dot_condarc.j2
+    dest: "/home/{{ item }}/.condarc"
+    owner: "{{ item }}"
+    group: "{{ item }}"
+  with_items: "{{ conda_user }}"
+
+- name: Add conda env line in .bashrc file
+  lineinfile:
+    path: "/home/{{ item }}/.bashrc"
+    line: source /opt/conda/etc/profile.d/conda.sh
+    create: yes
+  with_items: "{{ conda_user }}"  
+
+- name: Create user home pypi config
+  file:
+    path: "/home/{{ item }}/.config/pip"
+    owner: "{{ item }}"
+    group: "{{ item }}"
+    state: directory
+  with_items: "{{ conda_user }}"
+
+- name: Add Pypi config
+  template:
+    src: dot_pip.j2
+    dest: "/home/{{ item }}/.config/pip/pip.conf"
+    owner: "{{ item }}"
+    group: "{{ item }}"
+  with_items: "{{ conda_user }}"
