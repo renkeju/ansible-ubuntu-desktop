@@ -1,2 +1,26 @@
 ---
 # tasks file for syncthing
+
+- name: Install our public gpg key to trusted store
+  apt_key:
+    url: https://syncthing.net/release-key.txt
+    state: present
+
+- name: Add Syncthing repository
+  apt_repository:
+    repo: deb https://apt.syncthing.net/ syncthing stable
+    state: present
+    filename: syncthing
+
+- name: Install Syncthing
+  apt:
+    name: syncthing
+    update_cache: yes
+
+- name: Enable and start Syncthing
+  systemd:
+    state: started
+    name: "syncthing@{{ item }}"
+    daemon_reload: yes
+    enabled: yes
+  with_items: "{{ syncthing_users }}"

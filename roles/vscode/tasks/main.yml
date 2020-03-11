@@ -26,3 +26,4 @@
     - vscode_extension is defined
   loop: "{{ vscode_extension }}"
   changed_when: result.stdout is not search('is already installed.')
+  run_once: yes

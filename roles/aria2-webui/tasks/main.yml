@@ -1,0 +1,15 @@
+---
+# tasks file for aria2-webui
+
+- include_tasks: aria2.yml
+
+- meta: flush_handlers
+
+- include_tasks: nginx.yml
+
+- meta: flush_handlers
+
+- include_tasks: dnsmasq.yml
+
+- meta: flush_handlers
+

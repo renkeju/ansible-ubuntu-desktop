@@ -1,0 +1,42 @@
+---
+
+- name: Install Nginx
+  apt:
+    pkg:
+    - nginx
+    - git
+
+- name: Clone github aria2-webui repo
+  git:
+    repo: "https://github.com/ziahamza/webui-aria2.git"
+    dest: "{{ aria2_webui_github_repo_dir }}"
+
+- name: Check Nginx default Configration exists
+  stat:
+    path: /etc/nginx/sites-enabled/default
+  register: nginx_config_default
+
+- name: Remove Nginx default configuration
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+  when: nginx_config_default.stat.exists
+  notify: nginx restarted
+
+- name: Upload Nginx configuration aria2-webui templates
+  template:
+    src: webui-aria2.j2
+    dest: /etc/nginx/sites-available/aria2-webui
+
+- name: Check Nginx aria2-webui Configration link exists
+  stat:
+    path: /etc/nginx/sites-enabled/aria2-webui
+  register: nginx_config_aria2_webui
+
+- name: Create Nginx configuration aria2-webui link
+  file:
+    src: /etc/nginx/sites-available/aria2-webui
+    dest: /etc/nginx/sites-enabled/aria2-webui
+    state: link
+  when: nginx_config_aria2_webui.stat.exists == False
+  notify: nginx restarted

@@ -1,0 +1,18 @@
+---
+# tasks file for typora
+
+- name: Install our public gpg key to trusted store
+  apt_key:
+    url: https://typora.io/linux/public-key.asc
+    state: present
+
+- name: Add Typora repository
+  apt_repository:
+    repo: deb https://typora.io/linux ./
+    state: present
+    filename: typora
+
+- name: Install Typora
+  apt:
+    name: typora
+    update_cache: yes

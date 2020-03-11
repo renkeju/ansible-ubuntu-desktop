@@ -1,2 +1,10 @@
 ---
 # defaults file for vagrant
+
+vagrant_version: 2.2.7
+ruby_gems_repo: https://gems.ruby-china.com/
+vagrant_pkg_download_dir: /tmp
+
+vagrant_plugins:
+  - vagrant-omnibus
+  - vagrant-proxyconf

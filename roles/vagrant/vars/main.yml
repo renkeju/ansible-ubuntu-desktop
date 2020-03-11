@@ -1,2 +1,5 @@
 ---
 # vars file for vagrant
+
+vagrant_checksums:
+  '2.2.7': 33ef5c874d28e424fa93d86c0d6d5e2e5817183995e34d9ed67e527a2aee854d

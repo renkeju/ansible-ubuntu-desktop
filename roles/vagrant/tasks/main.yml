@@ -1,2 +1,30 @@
 ---
 # tasks file for vagrant
+
+- name: Check vagrant deb package storage directory
+  stat:
+    path: "{{ vagrant_pkg_download_dir }}"
+  register: vagrant_pkg_download_dir_status
+
+- name: Create if the vagrant deb package storage directory does not exist
+  file:
+    path: "{{ vagrant_pkg_download_dir }}"
+    state: directory
+  when: vagrant_pkg_download_dir_status.stat.exists == False
+
+- name: Get Vagrant deb package
+  get_url:
+    url: "https://releases.hashicorp.com/vagrant/{{ vagrant_version }}/vagrant_{{ vagrant_version }}_{{ ansible_architecture }}.deb"
+    dest: "{{ vagrant_pkg_download_dir }}"
+    checksum: "sha256:{{ vagrant_checksums[vagrant_version] }}"
+
+- name: Install Vagrant
+  apt:
+    deb: "{{ vagrant_pkg_download_dir }}/vagrant_{{ vagrant_version }}_{{ ansible_architecture }}.deb"
+
+- name: Install Vagrant Plugin
+  become: no
+  command: "/usr/bin/vagrant plugin install --plugin-source {{ ruby_gems_repo }} {{ item }}"
+  with_items: "{{ vagrant_plugins }}"
+  run_once: yes
+  ignore_errors: yes

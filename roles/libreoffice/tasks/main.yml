@@ -1,0 +1,12 @@
+---
+# tasks file for libreoffice
+
+- name: Add LibreOffice Fresh PPA
+  apt_repository:
+    repo: ppa:libreoffice/ppa
+
+- name: Install LibreOffice
+  apt:
+    pkg:
+    - libreoffice
+    - libreoffice-l10n-zh-cn

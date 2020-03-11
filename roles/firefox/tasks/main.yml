@@ -1,0 +1,32 @@
+---
+# tasks file for firefox
+
+- name: PPA for Ubuntu Mozilla Security Team
+  apt_repository:
+    repo: ppa:ubuntu-mozilla-security/ppa
+
+- name: Install Firefox
+  apt:
+    name: firefox
+    state: latest
+    update_cache: yes
+
+- name: Check Firefox profile exists
+  become: no
+  stat: 
+    path: ~/.mozilla/firefox/profiles.ini
+  register: firefox_profile
+
+- name: Check Filefox profile 
+  become: no
+  lineinfile:
+    path: ~/.mozilla/firefox/profiles.ini
+    line: "Name=default"
+    state: present
+  register: firefox_profile_ensure
+  when: firefox_profile.stat.exists
+
+- name: Ensure profile exists
+  become: no
+  shell: firefox -no-remote -CreateProfile default
+  when: firefox_profile_ensure is changed

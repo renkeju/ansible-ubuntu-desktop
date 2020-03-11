@@ -1,0 +1,11 @@
+server {
+	listen {{ aria2_webui_listen_address }}:80;
+	server_name {{ aria2_webui_domain_name }};
+
+	root {{ aria2_webui_github_repo_dir }}/docs;
+	index index.html;
+
+	location / {
+		try_files $uri $uri/ =404;
+	}
+}

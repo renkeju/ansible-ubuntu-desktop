@@ -1,2 +1,23 @@
 ---
 # tasks file for virtualbox
+
+- name: add Virtualbox apt signing key
+  apt_key:
+    url: "{{ item }}"
+    state: present
+  with_items:
+    - https://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc
+    - https://download.virtualbox.org/virtualbox/debian/oracle_vbox_2016.asc
+  become: yes
+
+- name: setup VirtualBox apt repository on Ubuntu
+  apt_repository:
+    repo: "deb https://download.virtualbox.org/virtualbox/debian {{ ansible_distribution_release }} contrib"
+    state: present
+  become: yes
+
+- name: install VirtualBox
+  apt:
+    name: "virtualbox-{{ virtualbox_version }}"
+    state: present
+  become: yes

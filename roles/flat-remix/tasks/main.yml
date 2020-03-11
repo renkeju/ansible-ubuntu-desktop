@@ -1,2 +1,19 @@
 ---
 # tasks file for flat-remix
+
+- name: Add apt repository
+  apt_repository:
+    repo: ppa:daniruiz/flat-remix
+
+- name: Install flat-remix
+  apt:
+    pkg:
+    - flat-remix
+    - flat-remix-gnome
+    - flat-remix-gtk
+    - gnome-tweaks
+    - gnome-shell-extensions
+    - gnome-shell
+    - chrome-gnome-shell
+    update_cache: yes
+

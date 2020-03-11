@@ -1,14 +1,42 @@
 ---
 
-- name: setup a deployment environment
+- name: Setup to beautify the desktop
   hosts: default
   gather_facts: yes
   roles:
-    # - role: anaconda
-    - role: vscode
+    - role: flat-remix
 
-- name: setup a virtualization environment
+- name: Deployment environment
   hosts: default
   gather_facts: yes
   roles:
-    - role: vagrant
+    - role: anaconda
+    - role: vscode
+    # - role: vim
+    # - role: jenkins
+
+- name: Virtualization environment
+  hosts: default
+  gather_facts: yes
+  roles:
+      - role: vagrant
+      - role: virtualbox
+
+- name: Internet application
+  hosts: default
+  connection: local
+  gather_facts: yes
+  roles:
+    - role: mpv
+    - role: syncthing
+    - role: firefox
+    - role: google-chrome
+    - role: aria2-webui
+
+- name: Office application
+  hosts: default
+  connection: local
+  gather_facts: yes
+  roles:
+    - role: libreoffice
+    - role: typora

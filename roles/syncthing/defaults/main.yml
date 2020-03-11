@@ -1,2 +1,5 @@
 ---
 # defaults file for syncthing
+
+syncthing_users:
+  - vagrant

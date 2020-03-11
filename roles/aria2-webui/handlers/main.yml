@@ -1,0 +1,26 @@
+---
+# handlers file for aria2-webui
+
+- name: NetworkManager restarted
+  systemd:
+    name: NetworkManager
+    state: restarted
+
+- name: nginx restarted
+  systemd:
+    name: NetworkManager
+    state: restarted
+
+- name: aria2 enabled
+  systemd:
+    name: aria2
+    state: started
+    enabled: yes
+    user: yes
+
+- name: aria2 restarted
+  systemd:
+    name: aria2
+    state: restarted
+    enabled: yes
+    user: yes

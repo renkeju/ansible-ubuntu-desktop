@@ -1,0 +1,4 @@
+---
+# defaults file for google-chrome
+
+chrome_package: google-chrome-stable

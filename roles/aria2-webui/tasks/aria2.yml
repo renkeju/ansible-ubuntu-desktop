@@ -1,0 +1,35 @@
+---
+
+- name: Install aria2
+  apt:
+    name: aria2
+
+- name: create user home dot aria2
+  become: no
+  file:
+    path: ~/.aria2
+    state: directory
+
+- name: create user home aria2 session
+  become: no
+  file:
+    path: ~/.aria2/aria2.session
+    state: touch
+
+- name: Upload aria2 systemctl configuration
+  template:
+    src: aria2.service.j2
+    dest: /usr/lib/systemd/user/aria2.service
+  notify: aria2 enabled
+
+- name: systemd daemon-reload
+  systemd:
+    daemon_reload: yes
+
+- name: Upload aria2 configuration template
+  become: no
+  template:
+    src: aria2.conf.j2
+    dest: ~/.aria2/aria2.conf
+  notify: aria2 restarted
+

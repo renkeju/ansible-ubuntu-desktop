@@ -1,0 +1,6 @@
+---
+# defaults file for firefox
+
+firefox_addons:
+  - https://github.com/FelisCatus/SwitchyOmega/releases/download/v2.5.20/proxy_switchyomega-2.5.20-an+fx.xpi
+  - https://addons.mozilla.org/zh-CN/firefox/addon/gnome-shell-integration

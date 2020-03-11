@@ -1,0 +1,22 @@
+---
+# defaults file for aria2-webui
+
+aria2_rpc_secret: ASDFGHJKL
+aria2_max_download_limit: 8
+
+aria2_webui_github_repo_dir: /usr/share/nginx/html/aria2-webui
+aria2_webui_domain_name: aria2.localdomain
+aria2_webui_listen_address: 127.0.0.1
+
+networkmanager_configuration_directory: /etc/NetworkManager
+
+dnsmasq_configuration_directory: "{{ networkmanager_configuration_directory }}/dnsmasq.d"
+
+dnsmasq_configuration_files:
+  - { src: 'domain.conf.j2', dest: 'domain.conf' }
+  - { src: 'upstream.conf.j2', dest: 'upstream.conf' }
+  - { src: 'dnsmasq.conf.j2', dest: 'dnsmasq.conf' }
+
+dnsmasq_upstream_dns_servers:
+  - 114.114.114.114
+  - 1.1.1.1
