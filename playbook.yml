@@ -1,11 +1,11 @@
 ---
 
-# - name: Setup to Proxy
-#   hosts: default
-#   gather_facts: yes
-#   roles:
-#     - role: shadowsocks
-#     - role: privoxy
+- name: Setup to Proxy
+  hosts: default
+  gather_facts: yes
+  roles:
+    - role: shadowsocks
+    - role: privoxy
 
 - name: Setup to beautify the desktop
   hosts: default
@@ -13,37 +13,37 @@
   roles:
     - role: flat-remix
 
-# - name: Deployment environment
-#   hosts: default
-#   gather_facts: yes
-#   roles:
-#     - role: anaconda
-#     - role: vscode
-#     - role: vim
-#     - role: git
-#     - role: oh-my-zsh
-#     # - role: jenkins
+- name: Deployment environment
+  hosts: default
+  gather_facts: yes
+  roles:
+    - role: anaconda
+    - role: vscode
+    - role: vim
+    - role: git
+    - role: oh-my-zsh
+    # - role: jenkins
 
-# - name: Virtualization environment
-#   hosts: default
-#   gather_facts: yes
-#   roles:
-#       - role: vagrant
-#       - role: virtualbox
-# 
-# - name: Internet application
-#   hosts: default
-#   gather_facts: yes
-#   roles:
-#     - role: mpv
-#     - role: syncthing
-#     - role: firefox
-#     - role: google-chrome
-#     - role: aria2-webui
-# 
-# - name: Office application
-#   hosts: default
-#   gather_facts: yes
-#   roles:
-#     - role: libreoffice
-#     - role: typora
+- name: Virtualization environment
+  hosts: default
+  gather_facts: yes
+  roles:
+      - role: vagrant
+      - role: virtualbox
+
+- name: Internet application
+  hosts: default
+  gather_facts: yes
+  roles:
+    - role: mpv
+    - role: syncthing
+    - role: firefox
+    - role: google-chrome
+    - role: aria2-webui
+
+- name: Office application
+  hosts: default
+  gather_facts: yes
+  roles:
+    - role: libreoffice
+    - role: typora

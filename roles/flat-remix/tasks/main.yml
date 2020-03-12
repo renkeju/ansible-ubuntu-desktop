@@ -18,6 +18,7 @@
     update_cache: yes
 
 - name: Get Bibata_cursor shell scripts
+  become: no
   get_url:
     url: https://raw.githubusercontent.com/KaizIqbal/Bibata_Cursor/master/Bibata.sh
     dest: ~/Downloads/Bibata.sh
