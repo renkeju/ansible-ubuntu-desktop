@@ -1,5 +1,9 @@
 ---
 
+shadowsocks_local_address: 127.0.0.1
+shadowsocks_local_port: 1080
+privoxy_listen_port: 8118
+
 ###############################
 # defaults file for docker
 ###############################

@@ -17,11 +17,12 @@ Vagrant.configure("2") do |config|
     ]
   end
 
-  config.vm.provision "ansible_local" do |ansible|
+  config.vm.provision "ansible" do |ansible|
     ansible.playbook = "playbook.yml"
-    ansible.install_mode = "pip"
     ansible.become = true
+    ansible.verbose = false
     ansible.compatibility_mode = "2.0"
+    ansible.vault_password_file = "~/.vault_pass"
     ansible.extra_vars = { 
       ansible_python_interpreter: "/usr/bin/python3" 
     }

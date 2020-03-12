@@ -1,19 +1,22 @@
 ---
 # tasks file for google-chrome
 
-- name: "apt | ensure Google linux signing key present"
+- name: "ensure Google linux signing key present"
   apt_key: 
     url: https://dl-ssl.google.com/linux/linux_signing_key.pub 
     state: present
+  environment:
+    http_proxy: "http://localhost:{{ privoxy_listen_port }}"
+    https_proxy: "http://localhost:{{ privoxy_listen_port }}"
 
-- name: "apt | ensure Google chrome repo present"
+- name: "ensure Google chrome repo present"
   apt_repository:
     repo: "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
     filename: "google-chrome"
     state: present
     update_cache: yes
 
-- name: "apt | ensure Google chrome present"
+- name: "ensure Google chrome present"
   apt:
     name: "{{ chrome_package }}"
     state: present

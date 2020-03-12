@@ -12,6 +12,7 @@
     state: restarted
 
 - name: aria2 enabled
+  become: no
   systemd:
     name: aria2
     state: started
@@ -19,6 +20,7 @@
     user: yes
 
 - name: aria2 restarted
+  become: no
   systemd:
     name: aria2
     state: restarted

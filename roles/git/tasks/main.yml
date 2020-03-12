@@ -1,0 +1,14 @@
+---
+# tasks file for git
+
+- name: Install git
+  apt:
+    name: git
+
+- name: git clone owner repo
+  become: no
+  git:
+    repo: "{{ item.repo }}"
+    dest: "~/Documents/{{ item.name }}"
+    update: no
+  with_items: "{{ github_clone_repos }}"

@@ -1,0 +1,7 @@
+---
+# defaults file for git
+
+github_clone_repos:
+  - { name: "kubernetes-docs", repo: "https://github.com/renkeju/k8s-docs.git" }
+  - { name: "ansible-ubuntu-desktop", repo: "https://github.com/renkeju/ansible-ubuntu-desktop.git" }
+  - { name: "linux-docs", repo: "https://github.com/renkeju/linux-basic-practice.git" }

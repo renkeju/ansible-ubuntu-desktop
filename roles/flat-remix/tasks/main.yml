@@ -17,3 +17,10 @@
     - chrome-gnome-shell
     update_cache: yes
 
+- name: Get Bibata_cursor shell scripts
+  get_url:
+    url: https://raw.githubusercontent.com/KaizIqbal/Bibata_Cursor/master/Bibata.sh
+    dest: ~/Downloads/Bibata.sh
+  environment:
+    http_proxy: "http://localhost:{{ privoxy_listen_port }}"
+    https_proxy: "http://localhost:{{ privoxy_listen_port }}"

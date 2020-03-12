@@ -15,8 +15,11 @@
 - name: Get Vagrant deb package
   get_url:
     url: "https://releases.hashicorp.com/vagrant/{{ vagrant_version }}/vagrant_{{ vagrant_version }}_{{ ansible_architecture }}.deb"
-    dest: "{{ vagrant_pkg_download_dir }}"
+    dest: "{{ vagrant_pkg_download_dir }}/vagrant_{{ vagrant_version  }}_{{ ansible_architecture }}.deb"
     checksum: "sha256:{{ vagrant_checksums[vagrant_version] }}"
+  environment:
+    http_proxy: "http://localhost:{{ privoxy_listen_port }}"
+    https_proxy: "http://localhost:{{ privoxy_listen_port }}"
 
 - name: Install Vagrant
   apt:
@@ -24,7 +27,9 @@
 
 - name: Install Vagrant Plugin
   become: no
-  command: "/usr/bin/vagrant plugin install --plugin-source {{ ruby_gems_repo }} {{ item }}"
+  command: "/usr/bin/vagrant plugin install {{ item }}"
   with_items: "{{ vagrant_plugins }}"
-  run_once: yes
   ignore_errors: yes
+  environment:
+    http_proxy: "http://localhost:{{ privoxy_listen_port }}"
+    https_proxy: "http://localhost:{{ privoxy_listen_port }}"

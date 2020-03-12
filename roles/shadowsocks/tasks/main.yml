@@ -1,2 +1,40 @@
 ---
 # tasks file for shadowsocks
+
+- name: Ensure shadowsocks is installed
+  apt:
+    pkg:
+    - shadowsocks
+    - git
+
+- name: Ensure shadowsocks systemctl config is available
+  template:
+    src: shadowsocks@.service.j2
+    dest: /lib/systemd/system/shadowsocks@.service
+  notify: restart shadowsocks
+
+- name: Ensure shadowsocks config is available
+  template:
+    src: config.json.j2
+    dest: /etc/shadowsocks/config.json
+  notify: restart shadowsocks
+
+- name: Ensure shadowsocks started and enabled
+  systemd:
+    name: shadowsocks@config
+    state: started
+    enabled: true
+
+- name: Ensure apt command proxy config is available
+  template:
+    src: 12proxy.j2
+    dest: /etc/apt/apt.conf.d/12proxy
+
+- name: Setup git system config proxy 
+  git_config:
+    scope: system
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+  with_items:
+    - { name: "http.https://github.com.proxy", value: "socks5://{{ shadowsocks_local_address }}:{{ shadowsocks_local_port }}" }
+

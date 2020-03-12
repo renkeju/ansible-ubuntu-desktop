@@ -1,2 +1,8 @@
 ---
 # handlers file for shadowsocks
+
+- name: restart shadowsocks
+  systemd:
+    name: shadowsocks@config
+    state: restarted
+

@@ -1,2 +1,84 @@
 ---
 # tasks file for oh-my-zsh
+
+- name: install dependencies
+  apt:
+    pkg:
+    - git
+    - zsh
+
+- name: install lsd and gotop
+  apt:
+    deb: "{{ item }}"
+  with_items:
+    - "https://github.com/Peltoche/lsd/releases/download/0.16.0/lsd_0.16.0_amd64.deb"
+    - "https://github.com/cjbassi/gotop/releases/download/3.0.0/gotop_3.0.0_linux_amd64.deb"
+  environment:
+    http_proxy: "http://localhost:{{ privoxy_listen_port }}"
+    https_proxy: "http://localhost:{{ privoxy_listen_port }}"
+
+- name: clone oh-my-zsh
+  become: no
+  git:
+    repo: "https://github.com/robbyrussell/oh-my-zsh.git"
+    dest: "~/.oh-my-zsh"
+    depth: 1
+
+- name: set permissions of oh-my-zsh
+  become: no
+  file:
+    path: '~/.oh-my-zsh'
+    mode: 'go-w'
+    recurse: yes
+
+- name: set default shell for users
+  user:
+    name: "{{ ansible_user }}"
+    shell: /bin/zsh
+
+- name: write .zshrc 
+  become: no
+  template:
+    src: zshrc.j2
+    dest: '~/.zshrc'
+    backup: yes
+    mode: 'u=rw,go=r'
+
+- name: Install Dependencies for NerdFonts
+  apt:
+    name: fontconfig
+
+- name: Download Nerd Font
+  get_url:
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/{{ font_version }}/{{ item }}.zip"
+    dest: "/tmp/{{ item }}.zip"
+  with_items: "{{ font_name_list }}"
+  environment:
+    http_proxy: "http://localhost:{{ privoxy_listen_port }}"
+    https_proxy: "http://localhost:{{ privoxy_listen_port }}"
+
+- name: Create Nerd font directory
+  file:
+    path: /usr/share/fonts/nerd
+    state: directory
+
+- name: Unarchive font zip
+  unarchive:
+    src: "/tmp/{{ item }}.zip"
+    dest: "/usr/share/fonts/nerd"
+    remote_src: yes
+  with_items: "{{ font_name_list }}"
+
+- name: Install powerlevel9k
+  become: no
+  git:
+    repo: "https://github.com/bhilburn/powerlevel9k.git"
+    dest: "~/.oh-my-zsh/custom/themes/powerlevel9k"
+
+- name: Install oh my zsh plugins
+  become: no
+  git:
+    repo: "{{ item.repo }}"
+    dest: "{{ item.dest }}"
+  with_items: "{{ zsh_plugin_list }}"
+  when: item.repo is defined and item.dest is defined 

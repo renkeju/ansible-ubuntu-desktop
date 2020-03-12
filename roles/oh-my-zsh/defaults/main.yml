@@ -1,2 +1,20 @@
 ---
 # defaults file for oh-my-zsh
+
+zsh_plugin_list:
+  - { name: "git" }
+  - { name: "docker" }
+  - { name: "docker-compose" }
+  - { name: "zsh-autosuggestions", repo: "https://github.com/zsh-users/zsh-autosuggestions", dest: "~/.oh-my-zsh/custom/plugins/zsh-autosuggestions" }
+  - { name: "zsh-syntax-highlighting", repo: "https://github.com/zsh-users/zsh-syntax-highlighting.git", dest: "~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" }
+  - { name: "zsh-completions", repo: "https://github.com/zsh-users/zsh-completions", dest: "~/.oh-my-zsh/custom/plugins/zsh-completions" }
+
+font_version: "v2.1.0"
+font_name_list:
+  - Agave
+  - Hack
+  - JetBrainsMono
+  - RobotoMono
+  - Ubuntu
+  - UbuntuMono
+  - SourceCodePro

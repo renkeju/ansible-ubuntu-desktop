@@ -4,6 +4,7 @@
 - name: Add Mpv media player (FFmpeg version) PPA
   apt_repository:
     repo: ppa:mc3man/mpv-tests
+    state: present
 
 - name: Update repositories cache and install mpv
   apt:

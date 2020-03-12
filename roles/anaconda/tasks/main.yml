@@ -6,6 +6,9 @@
     url: https://repo.anaconda.com/pkgs/misc/gpgkeys/anaconda.asc
     keyring: /etc/apt/trusted.gpg.d/conda.gpg
     state: present
+  environment:
+    http_proxy: "http://localhost:{{ privoxy_listen_port }}"
+    https_proxy: "http://localhost:{{ privoxy_listen_port }}"
 
 - name: Add Ubuntu anaconda repo
   apt_repository:

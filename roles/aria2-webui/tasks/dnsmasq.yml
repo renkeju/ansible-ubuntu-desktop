@@ -21,7 +21,9 @@
     path: /etc/resolv.conf
     state: absent
   when: systemd_resolvd_link.stat.exists
-  notify: NetworkManager restarted
+  notify: 
+    - NetworkManager restarted
+    - nginx restarted
 
 - name: NetworkManager configuration use dnsmasq
   ini_file:
@@ -29,7 +31,9 @@
     section: main
     option: dns
     value: dnsmasq
-  notify: NetworkManager restarted
+  notify: 
+    - NetworkManager restarted
+    - nginx restarted
 
 - name: Upload dnsmasq template
   template:
@@ -41,11 +45,15 @@
   lineinfile:
     path: "{{ dnsmasq_configuration_directory }}/domain.conf"
     line: "address=/{{ aria2_webui_domain_name }}/{{ aria2_webui_listen_address }}"
-  notify: NetworkManager restarted
+  notify: 
+    - NetworkManager restarted
+    - nginx restarted
 
 - name: Insert line in dnsmasq domain config
   lineinfile:
     path: "{{ dnsmasq_configuration_directory }}/upstream.conf"
     line: "server={{ item }}"
   with_items: "{{ dnsmasq_upstream_dns_servers }}"
-  notify: NetworkManager restarted
+  notify: 
+    - NetworkManager restarted
+    - nginx restarted 

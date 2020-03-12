@@ -1,2 +1,4 @@
 ---
 # defaults file for privoxy
+
+privoxy_listen_port: 8118

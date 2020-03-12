@@ -1,2 +1,13 @@
 ---
 # tasks file for vim
+
+- name: git clone vimrc
+  become: no
+  git:
+    repo: "https://github.com/amix/vimrc.git"
+    dest: "~/.vim_runtime"
+    depth: 1
+
+- name: run vimrc shell script
+  become: no
+  shell: ~/.vim_runtime/install_awesome_vimrc.sh

@@ -1,2 +1,7 @@
 ---
 # handlers file for privoxy
+
+- name: privoxy restarted
+  systemd:
+    name: privoxy
+    state: restarted
